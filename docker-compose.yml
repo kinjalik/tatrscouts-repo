@@ -1,0 +1,11 @@
+version: '3'
+services:
+  server:
+    container_name: finwin_mvp
+    ports:
+      - 9000:9000
+    build:
+      context: .
+    volumes:
+      - /etc/letsencrypt/live/baam.kinjalik.ru/privkey.pem:/etc/letsencrypt/live/baam.kinjalik.ru/privkey.pem
+      - /etc/letsencrypt/live/baam.kinjalik.ru/fullchain.pem:/etc/letsencrypt/live/baam.kinjalik.ru/fullchain.pem

@@ -1,0 +1,14 @@
+name: "Deploy to the fucking machine"
+
+on:
+  push:
+    branches:
+      - "master"
+
+jobs:
+  deploy:
+    name: "Deploy"
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Ping the server"
+        run: curl https://baam.kinjalik.ru:1337/deploy/finwin_mvp

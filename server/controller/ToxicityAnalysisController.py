@@ -5,7 +5,7 @@ from server.entity.ChatMessage import ChatMessage
 from server.entity.ToxicityAnalysisResult import ToxicityAnalysisResult
 from server.service.ToxicityAnalysisService import ToxicityAnalysisService
 
-toxicity_analysis_controller = APIRouter(prefix="/prediction")
+toxicity_analysis_controller = APIRouter(prefix="/toxicity-analysis")
 
 
 @toxicity_analysis_controller.post("/", response_model=ToxicityAnalysisResult)

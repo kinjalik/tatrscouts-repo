@@ -6,6 +6,7 @@ from controller.ToxicityAnalysisController import toxicity_analysis_controller
 app = FastAPI()
 app.include_router(toxicity_analysis_controller)
 
+
 def custom_openapi():
     if app.openapi_schema:
         return app.openapi_schema
@@ -16,13 +17,11 @@ def custom_openapi():
     version = f"{commit.hexsha[:7]} in {current_branch.name} by {commit.author}: {commit_msg}"
 
     openapi_schema = get_openapi(
-        title="Server Management",
+        title="FinoDays MVP by FinWin",
         version=version,
         routes=app.routes,
     )
     app.openapi_schema = openapi_schema
 
-app.openapi = custom_openapi
 
-if __name__ == '__main__':
-    uvicorn.run(app, host="127.0.0.1", port=5000, log_level="info")
+app.openapi = custom_openapi

@@ -8,7 +8,6 @@ app = FastAPI()
 app.include_router(toxicity_analysis_controller)
 
 # TO download the model
-results = Detoxify('multilingual').predict(["afwaf"])
 
 def custom_openapi():
     if app.openapi_schema:

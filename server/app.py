@@ -1,5 +1,4 @@
 import uvicorn, git, os
-from detoxify import Detoxify
 from fastapi import FastAPI, APIRouter
 from fastapi.openapi.utils import get_openapi
 from server.controller.QuestController import quest_controller

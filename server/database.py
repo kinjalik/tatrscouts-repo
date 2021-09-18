@@ -11,7 +11,7 @@ password = "postgres"
 db = "postgres"
 dbtype = "postgresql"
 
-SQLALCHEMY_DATABASE_URI = f"{dbtype}://{user}:{password}@{host}:{port}/{db}"
+SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL", f"{dbtype}://{user}:{password}@{host}:{port}/{db}")
 
 engine = create_engine(SQLALCHEMY_DATABASE_URI)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)

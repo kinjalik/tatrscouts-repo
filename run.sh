@@ -1,1 +1,1 @@
-uvicorn server:app --port 9000 --host 0.0.0.0
+uvicorn server:app --port "${PORT:-9000}" --host 0.0.0.0

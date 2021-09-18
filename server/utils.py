@@ -1,6 +1,9 @@
 import logging
 import sys
 
+from server import config
+from server.database import SessionLocal
+
 
 def get_logger(name: str):
     handler = logging.StreamHandler()
@@ -11,3 +14,10 @@ def get_logger(name: str):
     logger.addHandler(handler)
     logger.setLevel(config.logs.level)
     return logger
+
+def get_session():
+    session = SessionLocal()
+    try:
+        yield session
+    finally:
+        session.close()

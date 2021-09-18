@@ -2,10 +2,17 @@ import uvicorn, git, os
 from detoxify import Detoxify
 from fastapi import FastAPI, APIRouter
 from fastapi.openapi.utils import get_openapi
-from .controller.ToxicityAnalysisController import toxicity_analysis_controller
+from server.controller.QuestController import quest_controller
+
+from . import crud, models
+from .database import SessionLocal, engine
+from .schemas import QuestBase
+
+models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
-app.include_router(toxicity_analysis_controller)
+app.include_router(quest_controller)
+
 
 # TO download the model
 
@@ -19,7 +26,7 @@ def custom_openapi():
     version = f"{commit.hexsha[:7]} in {current_branch.name} by {commit.author}: {commit_msg}"
 
     openapi_schema = get_openapi(
-        title="FinoDays MVP by FinWin",
+        title="TatarScouts Interactive Quest API Reference",
         version=version,
         routes=app.routes,
     )
@@ -27,3 +34,6 @@ def custom_openapi():
 
 
 app.openapi = custom_openapi
+
+if __name__ == '__main__':
+    uvicorn.run(app, port=1337)

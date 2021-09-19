@@ -116,7 +116,7 @@ async function typedChoose(relations) {
   <div class="form-group">
     <input type="text" class="form-control" id="answer" aria-describedby="answer" placeholder="Введите ответ..">
   </div>
-  <button onclick="applyTypedChoose(${current_segment})" type="submit" class="btn btn-primary">
+  <button data-toggle="tooltip" data-placement="bottom" title="Tooltip on top" onclick="applyTypedChoose(${current_segment})" type="submit" class="btn btn-primary">
     <div>Ответить (по татарски)</div>
     <div>Ответить</div>
   </button>`
@@ -126,7 +126,21 @@ async function applyTypedChoose(current_segment) {
     const answerContainer = document.querySelector("#answer");
     const answer = answerContainer.value;
 
-    const req = await fetch(`${BASE}/quests/${quest_id}/relations/from/${current_segment}`);
+    let req = await fetch(`https://tatar-scouts-api.herokuapp.com/spellcheck/?text=${answer}`, {
+        headers: {
+            Accept: "application/json"
+        },
+        method: "POST"
+    });
+    const checkRes = await req.json();
+
+    console.log(checkRes)
+    if (checkRes['has_error']) {
+        $("#exampleModal").modal('show')
+        return;
+    }
+
+    req = await fetch(`${BASE}/quests/${quest_id}/relations/from/${current_segment}`);
     const nextRelations = await req.json();
 
     const relToChoose = nextRelations[0];
@@ -162,3 +176,13 @@ async function callTransition(id) {
 
     drawSegment(current_segment);
 })();
+
+const timer;
+document.addEventListener('selectionchange', () => {
+    let text = window.getSelection().toString();
+    console.log(text);
+    
+    if (timer != null) {
+        clearTimeout(timer);
+    }
+});

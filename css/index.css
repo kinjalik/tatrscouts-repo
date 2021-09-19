@@ -10,3 +10,8 @@
 body {
     font-size: 22px;
 }
+
+.btn {
+    white-space: normal !important;
+    word-wrap: break-word;
+}

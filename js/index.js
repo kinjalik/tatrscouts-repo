@@ -1,7 +1,7 @@
 (async () => {
     try {
 
-        const questsRes = await fetch("http://localhost:9000/quests/", {
+        const questsRes = await fetch("https://tatar-scouts-api.herokuapp.com/quests/", {
             headers: {
                 Accept: "application/json"
             },

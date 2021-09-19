@@ -3,7 +3,7 @@ const title = document.querySelector("#quest-name")
 const textContainer = document.querySelector("#text-container")
 const buttonContainer = document.querySelector("#button-container")
 
-const BASE = "http://localhost:9000"
+const BASE = "https://tatar-scouts-api.herokuapp.com"
 
 var variables,
     variable_names,

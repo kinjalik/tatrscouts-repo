@@ -214,5 +214,5 @@ document.addEventListener('selectionchange', () => {
         console.log(translate);
 
         toastr.info(`${text} → ${translate}`)
-    })
+    }, 1000);
 });

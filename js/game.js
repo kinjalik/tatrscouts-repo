@@ -135,10 +135,10 @@ async function applyTypedChoose(current_segment) {
     const checkRes = await req.json();
 
     console.log(checkRes)
-    if (checkRes['has_error']) {
-        $("#exampleModal").modal('show')
-        return;
-    }
+    // if (checkRes['has_error']) {
+    //     $("#exampleModal").modal('show')
+    //     return;
+    // }
 
     req = await fetch(`${BASE}/quests/${quest_id}/relations/from/${current_segment}`);
     const nextRelations = await req.json();

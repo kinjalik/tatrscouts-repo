@@ -177,12 +177,42 @@ async function callTransition(id) {
     drawSegment(current_segment);
 })();
 
-const timer;
-document.addEventListener('selectionchange', () => {
+async function getSelected() {
     let text = window.getSelection().toString();
-    console.log(text);
-    
+    return text;
+}
+
+let timer = null;
+document.addEventListener('selectionchange', () => {
+
     if (timer != null) {
         clearTimeout(timer);
+        timer = null;
     }
+
+    timer = setTimeout(async () => {
+        const text = await getSelected();
+        if (text == null || text == '')
+            return;
+        const res = await fetch(`http://byhackathon.translate.tatar/translate?lang=1&text=${text}`)
+        const contentType = res.headers.get("Content-Type")
+
+        let translate = null
+        if (contentType == "text/html;charset=utf-8") {
+            translate = await res.text();
+        } else {
+            parser = new DOMParser();
+            xmlDoc = parser.parseFromString(await res.text(), "text/xml");
+            console.log(xmlDoc);
+            const type = parseInt(xmlDoc.querySelector("responseType").innerHTML);
+            if (type == 0) {
+                translate = xmlDoc.querySelector("vt").innerHTML;
+            } else {
+                translate = xmlDoc.querySelector("translation").innerHTML;
+            }
+        }
+        console.log(translate);
+
+        toastr.info(`${text} → ${translate}`)
+    })
 });

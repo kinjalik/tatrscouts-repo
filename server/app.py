@@ -2,6 +2,7 @@ import uvicorn, git, os
 from fastapi import FastAPI, APIRouter
 from fastapi.openapi.utils import get_openapi
 from server.controller.QuestController import quest_controller
+from server.controller.SpellcheckController import spellcheck_controller
 
 from . import crud, models
 from .database import SessionLocal, engine
@@ -11,6 +12,7 @@ models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 app.include_router(quest_controller)
+app.include_router(spellcheck_controller)
 
 from fastapi.middleware.cors import CORSMiddleware
 origins = ["*"]

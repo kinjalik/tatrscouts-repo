@@ -28,7 +28,8 @@ def fap(
     spr = tst.spellcheck(text)
     data_set = {
         "has_error": False if spr[0] == 0 else True,
-        "word_index": spr[0] - 1,
-        "word_string": spr[1]
+        "error_index": spr[0] - 1,
+        "word": spr[1]
     }
+    print(data_set)
     return ResultModel(**data_set)

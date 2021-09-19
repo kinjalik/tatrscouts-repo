@@ -1,14 +1,9 @@
 from time import sleep
 from difflib import SequenceMatcher
-import tatsoftTranslate as tt
+
+from server.spellchecker import tatsoftTranslate as tt
 
 class TatSpellCheck:
-    all_words=set()
-    def __init__(self):
-        with open("wordlist.txt", "r") as f:
-            for line in f:
-                self.all_words.update(line.split())
-
     def spellcheck(self,tattext):
         rustext = tt.tat_to_rus(tattext)
         tattext = tattext.split(" ")
